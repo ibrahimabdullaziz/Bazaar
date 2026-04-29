@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navbar Style */
+.main-header {
+  background: #333;
+  color: #fff;
+  padding: 1rem 0;
+}
+
+.main-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-header ul {
+  display: flex;
+  list-style: none;
+}
+
+.main-header li {
+  margin-left: 20px;
+}
+
+.main-header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.main-header a:hover {
+  color: #ff9900;
+}
+
+/* Main Content Area */
+main {
+  padding: 2rem 0;
+}
+
+/* Forms & Input Styling */
+.form-control {
+  margin-bottom: 1rem;
+}
+
+.form-control label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #ff9900;
+}
+
+/* Auth Container */
+.auth-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-hero {
+  background: #fff;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.welcome-hero h1 {
+  margin-bottom: 10px;
+}
+
+.hero-actions {
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background: #ff9900;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.btn-outline {
+  border: 1px solid #ff9900;
+  color: #ff9900;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.featured-section {
+  margin-top: 30px;
+}
+
+.placeholder-grid {
+  padding: 50px;
+  border: 2px dashed #ccc;
+  text-align: center;
+  background: #eee;
+  color: #666;
+}
+
+/* Auth Utilities */
+.auth-footer {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.auth-link {
+  color: #ff9900;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+.auth-form h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}

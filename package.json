@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.1",
+    "node": "^24.15.0",
+    "nodemon": "^3.1.14"
+  },
+  "name": "bazaar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run dev"
+  },
+  "keywords": [],
+  "author": "Megatron",
+  "license": "ISC",
+  "type": "commonjs"
+}
