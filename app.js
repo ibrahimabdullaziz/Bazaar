@@ -6,6 +6,8 @@ const app = express();
 const { hostname } = require("os");
 const path = require("path");
 
+const authRouter = require("./routes/auth");
+
 require("dotenv").config();
 const port = process.env.LISTENING_PORT;
 
@@ -22,6 +24,11 @@ mongoose
 
 app.set("view engine", "ejs");
 app.set("views", "views");
+
+app.use(express.urlencoded({ extended: false }));
+
+//routes
+app.use(authRouter);
 
 app.use(express.static(path.join(__dirname, "public")));
 

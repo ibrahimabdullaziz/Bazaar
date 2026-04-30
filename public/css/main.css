@@ -161,3 +161,20 @@ main {
   margin-bottom: 1.5rem;
   text-align: center;
 }
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.radio-group input[type="radio"] {
+  width: auto;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.radio-label {
+  cursor: pointer;
+  font-weight: normal;
+}
