@@ -2,6 +2,7 @@ const dns = require("dns");
 dns.setDefaultResultOrder("ipv4first");
 const express = require("express");
 const app = express();
+const session = require("express-session");
 
 const { hostname } = require("os");
 const path = require("path");
@@ -12,6 +13,8 @@ require("dotenv").config();
 const port = process.env.LISTENING_PORT;
 
 const mongoose = require("mongoose");
+const User = require("./models/user");
+const MongoDBStore = require("connect-mongodb-session")(session);
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -27,7 +30,48 @@ app.set("views", "views");
 
 app.use(express.urlencoded({ extended: false }));
 
-//routes
+//add sessions store to save in database
+const DB_Store = new MongoDBStore({
+  uri: process.env.MONGO_URI,
+  collection: "sessions",
+});
+
+//create session
+app.use(
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: DB_Store,
+    cookie: {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      secure: false,
+    },
+  }),
+);
+
+//"Mongoose Instance" Middleware
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+
+  User.findById(req.session.user._id)
+    .then((user) => {
+      if (!user) {
+        return next();
+      }
+      req.user = user;
+    })
+    .catch((err) => {
+      console.log(err);
+      next();
+    });
+});
+
 app.use(authRouter);
 
 app.use(express.static(path.join(__dirname, "public")));

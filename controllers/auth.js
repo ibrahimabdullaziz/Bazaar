@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const crypt = require("bcrypt");
 
 exports.getLogin = (req, res) => {
   res.render("auth/login", {
@@ -10,11 +11,23 @@ exports.getLogin = (req, res) => {
 exports.postLogin = (req, res) => {
   const { email, password } = req.body;
 
-  User.find({ email: email, password: password })
+  User.findOne({ email: email })
     .then((user) => {
-      res.render("index", {
-        pageTitle: "Hello!",
-        path: "/",
+      if (!user) {
+        return res.redirect("/login");
+      }
+
+      return crypt.compare(password, user.password).then((isMatch) => {
+        if (isMatch) {
+          //sessions logic
+          req.session.isLoggedIn = true;
+          req.session.user = user;
+          return req.session.save((err) => {
+            console.log(err);
+            res.redirect("/");
+          });
+        }
+        res.redirect("/login");
       });
     })
     .catch((err) => {
@@ -29,12 +42,12 @@ exports.getSignup = (req, res) => {
   });
 };
 
-exports.postSignup = (req, res) => {
+exports.postSignup = async (req, res) => {
   console.log(req.body);
   const { name, password, email, role } = req.body;
   try {
     const newUser = new User({ name, password, email, role });
-    newUser.save();
+    await newUser.save();
   } catch (error) {
     console.log("Failed at creating new user!");
   } finally {
