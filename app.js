@@ -53,6 +53,8 @@ app.use(
 
 //"Mongoose Instance" Middleware
 app.use((req, res, next) => {
+  res.locals.isAuthenticated = false;
+
   if (!req.session.user) {
     return next();
   }
@@ -65,6 +67,7 @@ app.use((req, res, next) => {
         return next();
       }
       req.user = user;
+      next();
     })
     .catch((err) => {
       console.log(err);

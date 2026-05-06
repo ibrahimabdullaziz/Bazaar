@@ -55,3 +55,10 @@ exports.postSignup = async (req, res) => {
   }
   console.log("USER ADDED SUCCESSFULLY!");
 };
+
+exports.postLogout = (req, res) => {
+  req.session.destroy((err) => {
+    console.log(err);
+    res.redirect("/");
+  });
+};

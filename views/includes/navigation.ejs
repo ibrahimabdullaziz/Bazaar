@@ -6,8 +6,16 @@
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/listings">All Chalets</a></li>
-      <li><a href="/login">Login</a></li>
-      <li><a href="/signup">Signup</a></li>
+      <% if (!isAuthenticated) { %>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/signup">Signup</a></li>
+      <% } else { %>
+        <li>
+          <form action="/logout" method="POST">
+            <button type="submit">Logout</button>
+          </form>
+        </li>
+      <% } %>
     </ul>
   </nav>
 </header>

@@ -48,6 +48,21 @@ body {
   color: #ff9900;
 }
 
+.main-header button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+.main-header button:hover {
+  color: #ff9900;
+}
+
 /* Main Content Area */
 main {
   padding: 2rem 0;

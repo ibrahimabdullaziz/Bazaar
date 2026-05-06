@@ -18,7 +18,7 @@ userSchema.pre("save", async function (next) {
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(this.password, 12);
+    const hashedPassword = await crypt.hash(this.password, 12);
     this.password = hashedPassword;
     next();
   } catch (err) {
