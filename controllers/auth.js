@@ -13,6 +13,7 @@ exports.getLogin = (req, res) => {
     pageTitle: "login",
     path: "/login",
     errorMessage: message,
+    oldInput: { email: "", password: "" }
   });
 };
 
@@ -22,8 +23,12 @@ exports.postLogin = (req, res) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        req.flash("error", "this user not found!");
-        return res.redirect("/login");
+        return res.render("auth/login", {
+          pageTitle: "login",
+          path: "/login",
+          errorMessage: "this user not found!",
+          oldInput: { email: email, password: password }
+        });
       }
 
       return crypt.compare(password, user.password).then((isMatch) => {
@@ -36,19 +41,28 @@ exports.postLogin = (req, res) => {
             name: user.name,
           };
           return req.session.save((err) => {
-            req.flash("error", "session didn`t saved!");
+            if (err) console.log(err);
             return res.redirect("/");
           });
         }
-        req.flash("error", "password is wrong!");
-        return res.redirect("/login");
+        return res.render("auth/login", {
+          pageTitle: "login",
+          path: "/login",
+          errorMessage: "password is wrong!",
+          oldInput: { email: email, password: password }
+        });
       });
     })
     .catch((err) => {
       if (err) {
-        req.flash("error", "something get wrong!!");
+        console.log(err);
       }
-      return res.redirect("/login");
+      return res.render("auth/login", {
+        pageTitle: "login",
+        path: "/login",
+        errorMessage: "something got wrong!!",
+        oldInput: { email: email, password: password }
+      });
     });
 };
 
@@ -64,12 +78,13 @@ exports.getSignup = (req, res) => {
     pageTitle: "signup",
     path: "/signup",
     errorMessage: message,
+    oldInput: { name: "", email: "", password: "", confirmPassword: "", role: "guest" }
   });
 };
 
 exports.postSignup = async (req, res) => {
   console.log(req.body);
-  const { name, password, email, role } = req.body;
+  const { name, password, email, role, confirmPassword } = req.body;
 
   const errors = validationResult(req);
 
@@ -78,6 +93,7 @@ exports.postSignup = async (req, res) => {
       pageTitle: "signup",
       path: "/signup",
       errorMessage: errors.array()[0].msg,
+      oldInput: { name: name, email: email, password: password, confirmPassword: confirmPassword, role: role }
     });
   }
 

@@ -31,8 +31,6 @@ app.set("views", "views");
 
 app.use(express.urlencoded({ extended: false }));
 
-app.use(flash());
-
 //add sessions store to save in database
 const DB_Store = new MongoDBStore({
   uri: process.env.MONGO_URI,
@@ -49,16 +47,21 @@ app.use(
     cookie: {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
-      secure: false,
+      secure: false, // Set to true if using HTTPS
+      sameSite: 'lax', // Provides additional CSRF protection
     },
   }),
 );
 
-app.use(flash());
+const csrf = require("csurf");
+const csrfProtection = csrf();
 
-//"Mongoose Instance" Middleware
+app.use(csrfProtection);
+
+// Set local variables that are passed into all views
 app.use((req, res, next) => {
   res.locals.isAuthenticated = false;
+  res.locals.csrfToken = req.csrfToken();
 
   if (!req.session.user) {
     return next();
