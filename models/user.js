@@ -12,17 +12,16 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 });
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function () {
   if (!this.isModified("password")) {
-    return next();
+    return;
   }
 
   try {
     const hashedPassword = await crypt.hash(this.password, 12);
     this.password = hashedPassword;
-    next();
   } catch (err) {
-    next(err);
+    console.log(err);
   }
 });
 

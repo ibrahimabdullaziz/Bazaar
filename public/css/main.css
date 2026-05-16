@@ -193,3 +193,16 @@ main {
   cursor: pointer;
   font-weight: normal;
 }
+
+.user-message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.user-message--error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

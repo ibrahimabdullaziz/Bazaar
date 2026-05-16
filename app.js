@@ -3,6 +3,7 @@ dns.setDefaultResultOrder("ipv4first");
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const { hostname } = require("os");
 const path = require("path");
@@ -30,6 +31,8 @@ app.set("views", "views");
 
 app.use(express.urlencoded({ extended: false }));
 
+app.use(flash());
+
 //add sessions store to save in database
 const DB_Store = new MongoDBStore({
   uri: process.env.MONGO_URI,
@@ -50,6 +53,8 @@ app.use(
     },
   }),
 );
+
+app.use(flash());
 
 //"Mongoose Instance" Middleware
 app.use((req, res, next) => {

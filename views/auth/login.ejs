@@ -4,6 +4,9 @@
 <main class="container">
   <div class="auth-form">
     <h2>Welcome Back</h2>
+    <% if (errorMessage) { %>
+      <div class="user-message user-message--error"><%= errorMessage %></div>
+    <% } %>
     <form action="/login" method="POST">
       <div class="form-control">
         <label for="email">Email Address</label>
