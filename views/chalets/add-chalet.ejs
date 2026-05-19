@@ -1,0 +1,48 @@
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+<main class="container">
+  <div class="auth-form" style="max-width: 600px;"> <!-- Reusing auth-form class for styling -->
+    <h2>Add a New Chalet</h2>
+    
+    <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+      <div class="user-message user-message--error"><%= errorMessage %></div>
+    <% } %>
+
+    <form action="/chalets/add" method="POST" enctype="multipart/form-data">
+      <% if (typeof csrfToken !== 'undefined') { %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <% } %>
+
+      <div class="form-control">
+        <label for="title">Chalet Title</label>
+        <input type="text" name="title" id="title" required placeholder="E.g., Sunny Beachfront Chalet" />
+      </div>
+
+      <div class="form-control">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" rows="5" required placeholder="Describe your property..."></textarea>
+      </div>
+
+      <div class="form-control">
+        <label for="pricePerNight">Price per Night ($)</label>
+        <input type="number" name="pricePerNight" id="pricePerNight" step="0.01" required placeholder="150" />
+      </div>
+
+      <div class="form-control">
+        <label for="location">Location</label>
+        <input type="text" name="location" id="location" required placeholder="E.g., North Coast, Egypt" />
+      </div>
+
+      <div class="form-control">
+        <label for="image">Images (Upload)</label>
+        <!-- For now a single image input, later can be modified to multiple if you set up multer for array -->
+        <input type="file" name="image" id="image" />
+      </div>
+
+      <button class="btn" type="submit">Publish Chalet</button>
+    </form>
+  </div>
+</main>
+
+<%- include('../includes/end.ejs') %>

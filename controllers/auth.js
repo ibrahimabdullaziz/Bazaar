@@ -13,7 +13,7 @@ exports.getLogin = (req, res) => {
     pageTitle: "login",
     path: "/login",
     errorMessage: message,
-    oldInput: { email: "", password: "" }
+    oldInput: { email: "", password: "" },
   });
 };
 
@@ -27,7 +27,7 @@ exports.postLogin = (req, res) => {
           pageTitle: "login",
           path: "/login",
           errorMessage: "this user not found!",
-          oldInput: { email: email, password: password }
+          oldInput: { email: email, password: password },
         });
       }
 
@@ -49,7 +49,7 @@ exports.postLogin = (req, res) => {
           pageTitle: "login",
           path: "/login",
           errorMessage: "password is wrong!",
-          oldInput: { email: email, password: password }
+          oldInput: { email: email, password: password },
         });
       });
     })
@@ -61,7 +61,7 @@ exports.postLogin = (req, res) => {
         pageTitle: "login",
         path: "/login",
         errorMessage: "something got wrong!!",
-        oldInput: { email: email, password: password }
+        oldInput: { email: email, password: password },
       });
     });
 };
@@ -78,7 +78,13 @@ exports.getSignup = (req, res) => {
     pageTitle: "signup",
     path: "/signup",
     errorMessage: message,
-    oldInput: { name: "", email: "", password: "", confirmPassword: "", role: "guest" }
+    oldInput: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role: "guest",
+    },
   });
 };
 
@@ -93,7 +99,13 @@ exports.postSignup = async (req, res) => {
       pageTitle: "signup",
       path: "/signup",
       errorMessage: errors.array()[0].msg,
-      oldInput: { name: name, email: email, password: password, confirmPassword: confirmPassword, role: role }
+      oldInput: {
+        name: name,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        role: role,
+      },
     });
   }
 
